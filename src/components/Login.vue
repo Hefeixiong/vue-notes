@@ -34,9 +34,6 @@
 import Auth from '@/apis/auth'
 import Bus from '@/helpers/bus'
 
-Auth.getInfo().then(data => {
-  console.log(data)
-})
 export default {
   name: 'Login',
   data () {

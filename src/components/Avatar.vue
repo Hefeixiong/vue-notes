@@ -1,10 +1,11 @@
 <template>
-  <span :title="user.username">{{slug}}</span>
+  <span :title="user.username">{{ slug }}</span>
 </template>
 
 <script>
 import Auth from '@/apis/auth'
 import Bus from '@/helpers/bus'
+
 export default {
   data () {
     return {
@@ -15,20 +16,20 @@ export default {
   },
   created () {
     Bus.$on('userInfo', user => {
-      this.username = user.username
+      this.user.username = user.username
     })
 
     Auth.getInfo().then(res => {
       if (res.isLogin) {
-        this.username = res.data.username
+        this.user.username = res.data.username
         console.log(this.username)
       }
     })
   },
+
   computed: {
     slug () {
-      console.log(this.username.charAt(0))
-      return this.username.charAt(0)
+      return this.user.username.charAt(0)
     }
   }
 }

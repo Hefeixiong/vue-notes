@@ -1,16 +1,25 @@
 <template>
   <div id="login">
-    <h1>{{msg}}</h1>
+    <h1>{{ msg }}</h1>
   </div>
 </template>
 
 <script>
+import Auth from '@/apis/auth'
+
 export default {
   name: 'Login',
   data () {
     return {
       msg: 'This is NoteDetail page'
     }
+  },
+  created () {
+    Auth.getInfo().then(res => {
+      if (res.isLogin) {
+        this.$router.push({path: '/login'})
+      }
+    })
   }
 }
 </script>

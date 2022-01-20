@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import Auth from '@/apis/auth'
 import avatar from './Avatar.vue'
 export default {
   components: {
@@ -20,7 +21,9 @@ export default {
   },
   methods: {
     onLogout () {
-      console.log('logout')
+      Auth.logout().then(data => {
+        this.$router.push({path: '/login'})
+      })
     }
   }
 }
