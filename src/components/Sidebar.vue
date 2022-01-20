@@ -17,11 +17,16 @@ import avatar from './Avatar.vue'
 export default {
   components: {
     avatar
+  },
+  methods: {
+    onLogout () {
+      console.log('logout')
+    }
   }
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 #sidebar {
   position: relative;
   width: 56px;
