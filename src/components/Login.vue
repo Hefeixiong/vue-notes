@@ -87,6 +87,7 @@ export default {
       }).then(data => {
         this.register.isError = false
         this.register.notice = ''
+        console.log(data)
         Bus.$emit('userInfo', { username: this.login.username })
         this.$router.push({ path: 'notebooks' })
       }).catch(data => {
@@ -116,6 +117,7 @@ export default {
       }).then(data => {
         this.login.isError = false
         this.login.notice = ''
+        console.log(data)
         Bus.$emit('userInfo', { username: this.login.username })
         this.$router.push({ path: 'notebooks' })
       }).catch(data => {
