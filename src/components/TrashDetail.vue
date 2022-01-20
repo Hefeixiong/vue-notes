@@ -6,6 +6,8 @@
 
 <script>
 import Auth from '@/apis/auth'
+import Bus from '@/helpers/bus'
+
 export default {
   name: 'Login',
   data () {
@@ -14,10 +16,13 @@ export default {
     }
   },
   created () {
-    Auth.getInfo().then(res => {
-      if (res.isLogin) {
-        this.$router.push({path: '/login'})
-      }
+    Bus.$on('userInfo', user => {
+      console.log(user.username)
+      Auth.getInfo().then(res => {
+        if (!res.isLogin) {
+          this.$router.push({path: '/login'})
+        }
+      })
     })
   }
 }
