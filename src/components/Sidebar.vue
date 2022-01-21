@@ -13,17 +13,17 @@
 </template>
 
 <script>
-import Auth from '@/apis/auth'
 import avatar from './Avatar.vue'
+import {mapActions} from 'vuex'
+
 export default {
   components: {
     avatar
   },
   methods: {
+    ...mapActions(['logout']),
     onLogout () {
-      Auth.logout().then(data => {
-        this.$router.push({path: '/login'})
-      })
+      this.logout({path: '/login'})
     }
   }
 }
