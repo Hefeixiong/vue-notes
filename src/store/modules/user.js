@@ -18,7 +18,6 @@ const mutations = {
 
 const actions = {
   login ({commit}, {username, password}) {
-    debugger
     return Auth.login({username, password})
       .then(res => commit('setUser', {user: res.data}))
   },
