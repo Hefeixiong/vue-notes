@@ -9,7 +9,7 @@
           <span>创建日期：{{curNote.createAtFriendly}}</span>
           <span>更新日期：{{curNote.updatedAtFriendly}}</span>
           <span>{{statusText}}</span>
-          <span class="iconfont icon-delete"></span>
+          <span class="iconfont icon-delete" @click="onDeleteNote"></span>
           <span class="iconfont" :class="isShowPreview?'icon-edit' : 'icon-eye'" @click="isShowPreview = !isShowPreview"></span>
         </div>
         <div class="note-title">

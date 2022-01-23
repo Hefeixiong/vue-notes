@@ -5,8 +5,6 @@
 </template>
 
 <script>
-import Auth from '@/apis/auth'
-import Bus from '@/helpers/bus'
 
 export default {
   name: 'Login',
@@ -16,14 +14,6 @@ export default {
     }
   },
   created () {
-    Bus.$on('userInfo', user => {
-      console.log(user.username)
-      Auth.getInfo().then(res => {
-        if (!res.isLogin) {
-          this.$router.push({path: '/login'})
-        }
-      })
-    })
   }
 }
 </script>
