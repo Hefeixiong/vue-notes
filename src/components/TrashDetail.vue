@@ -1,7 +1,7 @@
 <template>
   <div id="trash" class="detail">
     <div class="note-sidebar">
-      <h3 class="notebook-list">回收站</h3>
+      <h3 class="notebook-title">回收站</h3>
       <div class="menu">
         <div>更新时间</div>
         <div>标题</div>
