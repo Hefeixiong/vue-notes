@@ -31,8 +31,12 @@ export default {
     return {}
   },
   created () {
-    this.checkLogin({path: '/login'})
-    // this.getNotebooks()
+    console.log('NotebookList create------------------')
+    this.checkLogin({path: '/login'}).then(res => {
+      console.log('login?')
+      console.log(res)
+    })
+    this.getNotebooks()
   },
   computed: {
     ...mapGetters(['notebooks'])

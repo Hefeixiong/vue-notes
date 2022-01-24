@@ -19,7 +19,10 @@ const mutations = {
 const actions = {
   login ({commit}, {username, password}) {
     return Auth.login({username, password})
-      .then(res => commit('setUser', {user: res.data}))
+      .then(res => {
+        console.log(res)
+        commit('setUser', {user: res.data})
+      })
   },
   register ({commit}, {username, password}) {
     return Auth.register({username, password})
@@ -31,15 +34,22 @@ const actions = {
     return Auth.logout().then(res => commit('setUser', {user: null}))
   },
   checkLogin ({commit, state}, payload = {path: '/'}) {
-    if (state.user !== null) return Promise.resolve()
-    return Auth.getInfo().then(res => {
-      if (!res.isLogin) {
-        console.log('jump...')
-        router.push(payload)
-      } else {
-        commit('setUser', {user: res.data})
-      }
-    })
+    console.log('checkLogin', state.user)
+    if (state.user !== null) {
+      return Promise.resolve()
+    } else {
+      return Auth.getInfo().then(res => {
+        console.log(res)
+        if (!res.isLogin) {
+          console.log('jump...')
+          router.push(payload)
+        } else {
+          console.log('isLogin = false')
+          commit('setUser', {user: res.data})
+        }
+        console.log('user.checkLogin', res)
+      })
+    }
   }
 }
 
