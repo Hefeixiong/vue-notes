@@ -5,7 +5,8 @@
     <el-dropdown v-if="curBook.id" class="notebook-title" @command="handleCommand" placement="bottom">
       <span class="el-dropdown-link">{{ curBook.title }} <i class="iconfont icon-down"></i></span>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item v-for="notebook in notebooks" :key="notebook.id" :command="notebook.id">{{notebook.title}}</el-dropdown-item>
+        <el-dropdown-item v-for="notebook in notebooks" :key="notebook.id" :command="notebook.id">{{ notebook.title }}
+        </el-dropdown-item>
         <el-dropdown-item command="trash">回收站</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
@@ -17,8 +18,8 @@
     <ul class="notes">
       <li v-for="note in notes" :key="note.id">
         <router-link :to="`/note?noteId = ${note.id}&notebookId = ${curBook.id}`">
-          <span class="date">{{note.updatedAtFriendly}}</span>
-          <span class="title">{{note.title}}</span>
+          <span class="date">{{ note.updatedAtFriendly }}</span>
+          <span class="title">{{ note.title }}</span>
         </router-link>
       </li>
     </ul>
@@ -31,21 +32,25 @@ import {mapActions, mapGetters, mapMutations} from 'vuex'
 export default {
   created () {
     this.getNotebooks().then(() => {
+      console.log('getNotebooks success')
+      console.log(this.$route.query.notebookId)
       this.setCurBook({curBookId: this.$route.query.notebookId})
-      if (this.curBook.id) {
-        return this.getNotes({notebookId: this.curBook.id})
-          .then(() => {
-            this.setCurNote({curNoteId: this.$route.query.noteId})
-            this.$router.replace({
-              path: '/note',
-              query: {
-                noteId: this.curNote.id,
-                notebookId: this.curBook.id
-              }
-            })
-          })
-      }
-    })
+      if (this.curBook.id) return this.getNotes({notebookId: this.curBook.id})
+    }).then(() => {
+      this.setCurNote({curNoteId: this.$route.query.noteId})
+      this.$router.replace({
+        path: '/note',
+        query: {
+          noteId: this.curNote.id,
+          notebookId: this.curBook.id
+        }
+      })
+    }).catch(err => console.log(err))
+    console.log('curBook', this.curBook)
+    console.log('notebooks', this.notebooks)
+    console.log('notes', this.notes)
+    console.log('curNote', this.curNote)
+    console.log(this.$route.query.notebookId)
   },
   computed: {
     ...mapGetters([
@@ -75,6 +80,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less">
 @import url(../assets/css/note-sidebar.less);
 </style>

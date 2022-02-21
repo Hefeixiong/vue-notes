@@ -30,8 +30,8 @@ const mutations = {
   deleteNote (state, payload) {
     state.notes = state.notes.filter(note => note.id !== payload.noteId)
   },
-  setCurNote (state, payload) {
-    state.curNoteId = payload.curNoteId()
+  setCurNote (state, payload = {}) {
+    state.curNoteId = payload.curNoteId
   }
 }
 

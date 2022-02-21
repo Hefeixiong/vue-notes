@@ -44,6 +44,7 @@ const actions = {
     return Notebook.getAll()
       .then(res => {
         commit('setNotebooks', {notebooks: res.data})
+        console.log(res.data)
       })
   },
 

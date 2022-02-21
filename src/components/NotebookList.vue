@@ -32,10 +32,7 @@ export default {
   },
   created () {
     console.log('NotebookList create------------------')
-    this.checkLogin({path: '/login'}).then(res => {
-      console.log('login?')
-      console.log(res)
-    })
+    this.checkLogin({path: '/login'})
     this.getNotebooks()
   },
   computed: {
