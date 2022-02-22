@@ -23,7 +23,6 @@
 
 <script>
 
-// import {friendlyDate} from '@/helpers/util'
 import {mapActions, mapGetters} from 'vuex'
 
 export default {

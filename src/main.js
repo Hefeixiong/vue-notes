@@ -11,7 +11,7 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 
 // eslint-disable-next-line no-new
-new Vue({
+window.vm = new Vue({
   el: '#app',
   router,
   store,
