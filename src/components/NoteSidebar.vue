@@ -1,7 +1,7 @@
 <template>
   <div class="note-sidebar">
     <span v-if="curBook.id" @click="noAddNote" class="btn add-note">添加笔记</span>
-    <span class="notebook-title">无笔记本</span>
+    <span v-if="!curBook.id" class="notebook-title">无笔记本</span>
     <el-dropdown v-if="curBook.id" class="notebook-title" @command="handleCommand" placement="bottom">
       <span class="el-dropdown-link">{{ curBook.title }} <i class="iconfont icon-down"></i></span>
       <el-dropdown-menu slot="dropdown">
@@ -17,7 +17,7 @@
     </div>
     <ul class="notes">
       <li v-for="note in notes" :key="note.id">
-        <router-link :to="`/note?noteId = ${note.id}&notebookId = ${curBook.id}`">
+        <router-link :to="`/note?noteId=${note.id}&notebookId=${curBook.id}`">
           <span class="date">{{ note.updatedAtFriendly }}</span>
           <span class="title">{{ note.title }}</span>
         </router-link>
@@ -31,10 +31,16 @@ import {mapActions, mapGetters, mapMutations} from 'vuex'
 
 export default {
   created () {
+    console.log('step 2 : NoteSidebar is created')
     this.getNotebooks().then(() => {
-      console.log('getNotebooks success')
-      console.log(this.$route.query.notebookId)
-      this.setCurBook({curBookId: this.$route.query.notebookId})
+      console.log('step 4: getNotebooks success')
+      if (this.$route.query.notebookId) {
+        this.setCurBook({curBookId: this.$route.query.notebookId})
+        debugger
+      } else {
+        this.setCurBook({curBookId: this.notebooks[0].id})
+        debugger
+      }
       if (this.curBook.id) return this.getNotes({notebookId: this.curBook.id})
     }).then(() => {
       this.setCurNote({curNoteId: this.$route.query.noteId})
@@ -45,12 +51,7 @@ export default {
           notebookId: this.curBook.id
         }
       })
-    }).catch(err => console.log(err))
-    console.log('curBook', this.curBook)
-    console.log('notebooks', this.notebooks)
-    console.log('notes', this.notes)
-    console.log('curNote', this.curNote)
-    console.log(this.$route.query.notebookId)
+    })
   },
   computed: {
     ...mapGetters([
@@ -70,8 +71,21 @@ export default {
       'getNotes',
       'addNote'
     ]),
-    handleCommand () {
-      console.log('Hi')
+    handleCommand (notebookId) {
+      if (notebookId === 'trash') {
+        return this.$router.push({path: '/trash'})
+      }
+      this.$store.commit('setCurBook', {curBookId: notebookId})
+      this.getNotes({ notebookId }).then(() => {
+        this.setCurNote()
+        this.$router.replace({
+          path: '/note',
+          query: {
+            noteId: this.curNote.id,
+            notebookId: this.curBook.id
+          }
+        })
+      })
     },
     noAddNote () {
       this.addNote({notebookId: this.curBook.id})

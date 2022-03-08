@@ -75,6 +75,11 @@ export default {
       }).then(() => {
         this.deleteNotebook({notebookId: notebook.id})
       })
+    },
+    beforeRouteUpdate (to, from, next) {
+      console.log(to)
+      debugger
+      next()
     }
   }
 }

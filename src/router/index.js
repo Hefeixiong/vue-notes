@@ -15,12 +15,16 @@ export default new Router({
       component: () => import('@/components/Login.vue')
     },
     {
-      path: '/note/:noteId',
+      path: '/note',
       component: () => import('@/components/NoteDetail.vue')
     },
     {
       path: '/trash',
       component: () => import('@/components/TrashDetail.vue')
+    },
+    {
+      path: '/sidebar',
+      component: () => import('@/components/NoteSidebar.vue')
     }
   ]
 })

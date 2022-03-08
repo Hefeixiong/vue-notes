@@ -17,10 +17,10 @@ const getters = {
 
 const mutations = {
   setNote (state, payload) {
-    state.notes = payload.notes
+    state.notes = payload.note
   },
   addNote (state, payload) {
-    state.notes.unshift(payload.notes)
+    state.notes.unshift(payload.note)
   },
   updateNote (state, payload) {
     let note = state.notes.find(note => note.id === payload.noteId) || {}

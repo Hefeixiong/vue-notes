@@ -10,8 +10,7 @@
           <span> 更新日期: {{ curNote.updatedAtFriendly }}</span>
           <span> {{ statusText }}</span>
           <span class="iconfont icon-delete" @click="onDeleteNote"></span>
-          <span class="iconfont" :class="isShowPreview?'icon-edit':'icon-eye'"
-                @click="isShowPreview = !isShowPreview"></span>
+          <span class="iconfont" :class="isShowPreview?'icon-edit':'icon-eye'" @click="isShowPreview = !isShowPreview"></span>
         </div>
         <div class="note-title">
           <input type="text" v-model="curNote.title" @input="onUpdateNote" @keydown="statusText='正在输入...'"
@@ -25,10 +24,8 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
-
 </template>
 
 <script>
@@ -62,7 +59,7 @@ export default {
     }
   },
   created () {
-    console.log('NoteDetail is created')
+    console.log('step 1 : NoteDetail is created')
     this.checkLogin({path: '/login'})
   },
   computed: {
