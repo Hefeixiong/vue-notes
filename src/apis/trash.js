@@ -10,20 +10,26 @@ const URL = {
 export default {
   getAll () {
     return new Promise((resolve, reject) => {
-      request(URL.GET).then(res => {
-        res.data = res.data.sort((note1, note2) => note1.createdAt < note2.createdAt)
-        res.data.forEach(note => {
-          note.createAtFriendly = friendlyDate(note.createdAt)
-          note.updateAtFriendlu = friendlyDate(note.updatedAt)
+      request(URL.GET)
+        .then(res => {
+          res.data = res.data.sort((note1, note2) => note1.createdAt < note2.createdAt)
+          res.data.forEach(note => {
+            note.createdAtFriendly = friendlyDate(note.createdAt)
+            note.updatedAtFriendly = friendlyDate(note.updatedAt)
+          })
+          resolve(res)
+        }).catch(err => {
+          reject(err)
         })
-        resolve(res)
-      }).catch(err => reject(err))
     })
   },
-  deleteNote ({noteId}) {
+
+  deleteNote ({ noteId }) {
     return request(URL.DELETE.replace(':noteId', noteId), 'DELETE')
   },
-  reverNote ({noteId}) {
-    return request(URL.REVERT.replace((':noteId'), noteId), 'PATCH')
+
+  revertNote ({ noteId }) {
+    return request(URL.REVERT.replace(':noteId', noteId), 'PATCH')
   }
+
 }

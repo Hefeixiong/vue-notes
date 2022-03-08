@@ -1,5 +1,5 @@
 import Trash from '@/apis/trash'
-import {Message} from 'element-ui'
+import { Message } from 'element-ui'
 
 const state = {
   trashNotes: null,
@@ -10,12 +10,12 @@ const getters = {
   trashNotes: state => state.trashNotes || [],
 
   curTrashNote: (state, getters) => {
-    if (!state.curTrashNoteId) return getters.trashNotes[0] || {}
-    return state.trashNotes.find(note => note.id === state.curTrashNoteId) || {}
+    if(!state.curTrashNoteId) return getters.trashNotes[0] || {}
+    return state.trashNotes.find(note => note.id == state.curTrashNoteId) || {}
   },
 
   belongTo: (state, getters, rootState, rootGetters) => {
-    let notebook = rootGetters.notebooks.find(notebook => notebook.id === getters.curTrashNote.notebookId) || {}
+    let notebook = rootGetters.notebooks.find(notebook => notebook.id == getters.curTrashNote.notebookId) || {}
     return notebook.title || ''
   }
 }
@@ -26,11 +26,11 @@ const mutations = {
   },
 
   addTrashNote (state, payload) {
-    this.setTrashNotes.unshift(payload.note)
+    setTrashNotes.unshift(payload.note)
   },
 
   deleteTrashNote (state, payload) {
-    state.trashNotes = state.trashNotes.filter(note => note.id !== payload.noteId)
+    state.trashNotes = state.trashNotes.filter(note => note.id != payload.noteId)
   },
 
   setCurTrashNote (state, payload = {}) {
@@ -40,25 +40,25 @@ const mutations = {
 }
 
 const actions = {
-  getTrashNotes ({commit}) {
+  getTrashNotes ({ commit }) {
     return Trash.getAll()
       .then(res => {
-        commit('setTrashNotes', {trashNotes: res.data})
+        commit('setTrashNotes', { trashNotes: res.data })
       })
   },
 
-  deleteTrashNote ({commit}, {noteId}) {
-    return Trash.deleteNote({noteId})
+  deleteTrashNote ({ commit }, { noteId }) {
+    return Trash.deleteNote({ noteId })
       .then(res => {
-        commit('deleteTrashNote', {noteId})
+        commit('deleteTrashNote', { noteId })
         Message.success(res.msg)
       })
   },
 
-  revertTrashNote ({commit}, {noteId}) {
-    return Trash.revertNote({noteId})
+  revertTrashNote ({ commit }, { noteId }) {
+    return Trash.revertNote({ noteId })
       .then(res => {
-        commit('deleteTrashNote', {noteId})
+        commit('deleteTrashNote', { noteId })
         Message.success(res.msg)
       })
   }

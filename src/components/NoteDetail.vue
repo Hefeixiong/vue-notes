@@ -1,3 +1,4 @@
+
 <template>
   <div id="note" class="detail">
     <note-sidebar  @update:notes="val => notes = val"></note-sidebar>

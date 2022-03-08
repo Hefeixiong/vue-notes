@@ -94,15 +94,17 @@ export default {
         })
       })
     },
-    onRevert ({commit}, {noteId}) {
-      this.revertTrashNote({noteId: this.curTrashNote.id}, {noteId}).then(() => {
-        this.setCurTrashNote()
-        this.$router.replace({
-          path: '/trash',
-          query: {noteId: this.curTrashNote.id}
+    onRevert() {
+      this.revertTrashNote({ noteId: this.curTrashNote.id })
+        .then(() => {
+          this.setCurTrashNote()
+          this.$router.replace({
+            path: '/trash',
+            query: { noteId: this.curTrashNote.id }
+          })
         })
-      })
     },
+
     beforeRouteUpdate (to, from, next) {
       this.setCurTrashNote({curTrashNoteId: to.query.noteId})
       next()
